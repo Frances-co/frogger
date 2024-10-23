@@ -10,12 +10,15 @@
 int asteriskRow= Brows-1;
 int asteriskCol= 10;
 int lost= 0;
+int frameCount = 0; //Used to control timing.
+int shiftInterval = 5;  // Shift tiles every 10 frames
 
 int getKeyPressed();
 void shiftRight(int board[Brows][Bcols], int row);
 void shiftLeft(int board[Brows][Bcols], int row);
 void printBoard(int board[Brows][Bcols]);
 void move(int board[Brows][Bcols]);
+void gameOver();
 
 int main()
 {
@@ -30,9 +33,13 @@ int main()
 
     //The loop for tiles movement
     while(!lost){
-        shiftRight(board, 1);
-        shiftLeft(board, 2);
-        shiftRight(board,3);
+        frameCount++;
+        if (frameCount >= shiftInterval) {
+            shiftRight(board, 1);
+            shiftLeft(board, 2);
+            shiftRight(board,3);
+            frameCount=0; //Reseting the framecount after shifting.
+        }
         move(board);
 
         printBoard(board);
@@ -74,8 +81,7 @@ void shiftRight(int board[Brows][Bcols], int row) {
                 continue;
             }
             else {
-                printf("You Died!");
-                lost= 1;
+                gameOver();
                 return;
             }
 
@@ -106,8 +112,7 @@ void shiftLeft(int board[Brows][Bcols], int row) {
                 continue;
             }
             else{
-                printf("You Died!");
-                lost= 1;
+                gameOver();
                 return;
             }
         }
@@ -143,8 +148,7 @@ void move(int board[Brows][Bcols]){
                 board[asteriskRow][asteriskCol]=42;
             }
             else{
-                printf("You Died!");
-                lost= 1;
+                gameOver();
             }
             break;
 
@@ -157,8 +161,7 @@ void move(int board[Brows][Bcols]){
                 board[asteriskRow][asteriskCol]=42;
             }
             else{
-                printf("You Died!");
-                lost= 1;
+                gameOver();
             }
             break;
 
@@ -171,8 +174,7 @@ void move(int board[Brows][Bcols]){
                 board[asteriskRow][asteriskCol]=42;
             }
             else{
-                printf("You Died!");
-                lost= 1;
+                gameOver();
             }
             break;
 
@@ -186,12 +188,28 @@ void move(int board[Brows][Bcols]){
             }
             else{
                 printf("%d", board[asteriskRow][asteriskCol-1]);
-                printf("You Died!");
-                lost= 1;
+                gameOver();
             }
             break;
 
         default:
             ; //Do Nothing...
     }
+
+    //A statement to spawn a new asterisk after the current reaches the top.
+    if(asteriskRow==0){
+        asteriskRow= 4;
+        asteriskCol= 10;
+        board[asteriskRow][asteriskCol]= 42;
+    }
+}
+
+//Gameover:
+void gameOver() {
+    lost=1; //The global variable controling our game loop.
+    printf("You Died!\n");
+    printf("Press any key to exit...\n");
+    getchar();  // Waits for the user to press a key
+
+    //Could've used system("pause"); but it's only working in windows so...
 }
