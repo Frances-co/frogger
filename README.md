@@ -2,7 +2,7 @@ Here is a `README.md` file for your game:
 
 ---
 
-# Froggy Car Game
+# Froggy Game
 
 ## Overview
 
