@@ -2,11 +2,11 @@ Here is a `README.md` file for your game:
 
 ---
 
-# Froggy Game
+# Frogger Game
 
 ## Overview
 
-This is a simple console-based **Froggy Car Game** implemented in C, where the player controls a character (represented by `*`) navigating through moving tiles (represented by `254`). The goal is to avoid crashing into the tiles as they shift left and right across the game board.
+This is a simple console-based **Frogger Game** implemented in C, where the player controls a character (represented by `*`) navigating through moving tiles (represented by `254`). The goal is to avoid crashing into the tiles as they shift left and right across the game board.
 
 ## Gameplay
 
